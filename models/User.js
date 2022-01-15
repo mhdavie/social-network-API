@@ -1,17 +1,17 @@
-const {Schema, model } = require('mongoose')
+const {Schema, model } = require('mongoose');
 
 const  UserSchema = new Schema(
     {
         username: {
             type: String,
             unique: true, 
-            required: 'Please insert your username'
+            required: 'Please insert your username',
             trim: true,
         },
         email: {
-        type:String, 
-        unique:true,
+        type:String,        
         required: 'Please insert your email!',
+        unique:true,
         validate: {
             validator(validEmail) {
               return /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z]{2,6})(\.[a-z]{2,6})?$/.test(
@@ -20,6 +20,9 @@ const  UserSchema = new Schema(
             },
             message: "Please enter a valid email address",
           },
+
+        },
+        
           //embebed document syntax [{}]
           thoughts: [{
               type: Schema.Types.ObjectId,
@@ -30,15 +33,14 @@ const  UserSchema = new Schema(
               ref: 'User'
           }]
         },
-        {
-            toJSON: {
-                virtuals: true, 
-                getters:true
+    {
+        toJSON: {
+                virtuals: true,
+                getters: true
             },
             id: false
-        }
+    }
 );
-
 //virtual countdown
 
 UserSchema.virtual('friendCount').get(function(){
