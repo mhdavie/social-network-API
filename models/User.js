@@ -20,6 +20,27 @@ const  UserSchema = new Schema(
             },
             message: "Please enter a valid email address",
           },
+          //embebed document syntax [{}]
+          thoughts: [{
+              type: Schema.Types.ObjectId,
+              ref: 'Thought'
+          }],
+          frieds: [{
+              type: Schema.Types.ObjectId,
+              ref: 'User'
+          }]
+        },
+        {
+            toJSON: {
+                virtuals: true, 
+                getters:true
+            },
+            id: false
         }
-    }
-)
+);
+
+//virtual countdown
+
+UserSchema.virtual('friendCount').get(function(){
+    return this.friends.length
+})
