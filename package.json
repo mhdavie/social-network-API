@@ -1,0 +1,27 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "This is project is an  API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.2",
+    "node": "^17.3.1",
+    "nodemon": "^2.0.15",
+    "mongoose": "^6.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhdavie/social-network-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhdavie/social-network-API/issues"
+  },
+  "homepage": "https://github.com/mhdavie/social-network-API#readme"
+}
