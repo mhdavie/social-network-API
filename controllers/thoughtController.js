@@ -1,8 +1,9 @@
 const { Thought, User } = require('../models')
 
 
-const thoughtController = {
-    // get all thoughts 
+module.exports = {
+
+   
     getAllThoughts(req, res) {
         Thought.find({})
         .populate({ path: 'reactions', select: '-__v' })
@@ -58,6 +59,4 @@ const thoughtController = {
         .then(dbThoughtData =>  dbThoughtData ? res.json(reaction200Message(params.thoughtId)) : res.status(404).json({ message: thought404Message(params.id) }))
         .catch(err => res.status(404).json(err))
     }
-}
-
-module.exports = thoughtController
+};

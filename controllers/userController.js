@@ -1,6 +1,6 @@
-const { Student, Thought, User } = require('../models');
+const { Thought, User } = require('../models');
 
-const userController = {
+module.exports = {
     
     getAllUsers(req, res) {
         User.find({})
@@ -59,6 +59,5 @@ const userController = {
         .then(dbUserData => res.status(200).json(user204Message(params.friendId, 'User')))
         .catch(err => res.json(err))
     }
-}
 
-module.exports = userController
+};
