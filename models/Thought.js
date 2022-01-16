@@ -51,6 +51,7 @@ const ThoughtSchema = new Schema(
             type: String,
             required: true,
         },
+        //we are creating reaction as schema only, not as unique model
         reactions: [ReactionSchema]
     },
     {
