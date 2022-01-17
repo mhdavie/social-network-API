@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models');
+const { Thought, User } = require('../models')
 
 module.exports = {
     
@@ -11,16 +11,16 @@ module.exports = {
         .catch(err => res.status(500).json(err))
     },
         
-        getUserById({ params }, res) {
-            User.findOne({ _id: params.id })
-            .populate({ path: 'friends', select: '-__v' })
-            .populate({ path: 'thoughts', select: '-__v', populate: { path: 'reactions'}})
-            .select('-__v')
-            .then(dbUserData =>  dbUserData ? res.json(dbUserData) : res.status(404).json({ message: user404Message(params.id) }))
-            .catch(err => res.status(404).json(err))
-        },
+    getUserById({ params }, res) {
+        User.findOne({ _id: params.id })
+        .populate({ path: 'friends', select: '-__v' })
+        .populate({ path: 'thoughts', select: '-__v', populate: { path: 'reactions'}})
+        .select('-__v')
+        .then(dbUserData =>  dbUserData ? res.json(dbUserData) : res.status(404).json({ message: user404Message(params.id) }))
+        .catch(err => res.status(404).json(err))
+    },
 
-           // add a new user 
+    // add a new user 
     createUser({ body }, res) {
         User.create({ username: body.username, email: body.email})
         .then(dbUserData => res.json(dbUserData))
