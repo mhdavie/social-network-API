@@ -45,9 +45,9 @@ module.exports = {
         User.findOneAndDelete({ _id: params.id })
         .then(dbUserData => {
             if (!dbUserData) {
-                return res.status(404).json({ message: user404Message(params.id) })
+                return res.status(404).json({ message: "this user is deleted" })
             }
-            Thought.deleteMany({ _id: params.id }).then(deletedData => deletedData ? res.json({ message: user204Message(params.id)}) : res.status(404).json({ message: user404Message(params.id) }))
+            Thought.deleteMany({ _id: params.id }).then(deletedData => deletedData ? res.json({ message: "this data is deleted"}) : res.status(404).json({ message: user404Message(params.id) }))
         })
         .catch(err => res.status(400).json(err))
     },
