@@ -42,14 +42,32 @@ module.exports = {
     },
 
     // add a reaction to thought
-    createReaction({ params, body }, res) {
+    // createReaction({ params, body }, res) {
+    //     Thought.findOneAndUpdate(
+    //         { _id: params.thoughtId },
+    //         { $push: { reactions: { reactionBody: body.reactionBody, username: body.username} } },
+    //         { new: true, runValidators: true })
+    //     .then(dbThoughtData =>  dbThoughtData ? res.json(dbThoughtData) : res.status(404).json({ message: thought404Message(params.id) }))
+    //     .catch(err => res.status(400).json(err))
+    // },
+
+    createReaction(req, res) {
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
-            { $push: { reactions: { reactionBody: body.reactionBody, username: body.username} } },
-            { new: true, runValidators: true })
-        .then(dbThoughtData =>  dbThoughtData ? res.json(dbThoughtData) : res.status(404).json({ message: thought404Message(params.id) }))
-        .catch(err => res.status(400).json(err))
-    },
+          { _id: req.params.thoughtId },
+          { $addToSet: { reactions: req.body } },
+          { runValidators: true, new: true }
+        )
+          .then((dbThoughtData) => {
+            if (!dbThoughtData) {
+              return res.status(404).json({ message: 'No thought with this id!' });
+            }
+            res.json(dbThoughtData);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+          });
+      },
 
     // remove a reaction from thought
     removeReaction({ params }, res) {
