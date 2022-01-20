@@ -11,11 +11,11 @@ module.exports = {
     },
 
     // get one thought by ID
-    getThoughtById({ params }, res) {
-        Thought.findOne({ _id: params.id })
+    getThoughtById(req, res) {
+        Thought.findOne({  _id: req.params.Id })
         .populate({ path: 'reactions', select: '-__v' })
         .select('-__v')
-        .then(dbThoughtData =>  dbThoughtData ? res.json(dbThoughtData) : res.status(404).json({ message: thought404Message(params.id) }))
+        .then(dbThoughtData =>  dbThoughtData ? res.json(dbThoughtData) : res.status(404).json({ message: 'No thought with this id!' }))
         .catch(err => res.status(404).json(err))
     },
 
@@ -72,7 +72,7 @@ module.exports = {
     // remove a reaction from thought
     removeReaction({ params }, res) {
         Thought.findOneAndUpdate({ _id: params.thoughtId}, { $pull: { reactions: { _id: params.reactionId} } }, { new: true})
-        .then(dbThoughtData =>  dbThoughtData ? res.json(reaction200Message(params.thoughtId)) : res.status(404).json({ message: thought404Message(params.id) }))
+        .then(dbThoughtData =>  dbThoughtData ? res.json(reaction200Message(params.thoughtId)) : res.status(404).json({ message: "this reaction its deleted" }))
         .catch(err => res.status(404).json(err))
     }
 };
