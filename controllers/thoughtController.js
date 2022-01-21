@@ -71,7 +71,7 @@ module.exports = {
 
     // remove a reaction from thought
     removeReaction({ params }, res) {
-        Thought.findOneAndUpdate({ _id: params.Id}, { $pull: { reactions: { _id: params.reactionId} } }, { new: true})
+        Thought.findOneAndUpdate({ _id: params.thoughtId}, { $pull: { reactions: { _id: params.reactionId} } }, { new: true})
         .then(dbThoughtData =>  dbThoughtData ? res.json(reaction200Message(params.thoughtId)) : res.status(404).json({ message: "this reaction its deleted" }))
         .catch(err => res.status(404).json(err))
     }
